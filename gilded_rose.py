@@ -1,4 +1,10 @@
 class GildedRose:
+
+    @staticmethod
+    def update_sell_in(item):
+        if "Sulfuras, Hand of Ragnaros" != item.name:
+            item.sell_in = item.sell_in - 1
+
     @staticmethod
     def update_item(items):
         for item in items:
@@ -26,8 +32,7 @@ class GildedRose:
                         if item.sell_in < 6:
                             if item.quality < 50:
                                 item.quality = item.quality + 1
-            if "Sulfuras, Hand of Ragnaros" != item.name:
-                item.sell_in = item.sell_in - 1
+            GildedRose.update_sell_in(item)
             if item.sell_in < 0:
                 if "Aged Brie" != item.name:
                     if "Backstage passes to a TAFKAL80ETC concert" != item.name:
