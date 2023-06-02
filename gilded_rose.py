@@ -11,22 +11,21 @@ class GildedRose:
 
             if "Aged Brie" == item.name:
                 if item.quality < 50:
-                    item.quality = item.quality + 1
                     if item.sell_in <= 5:
-                        item.quality = item.quality + 1
-                    if item.sell_in <= 10:
+                        item.quality = item.quality + 3
+                    elif item.sell_in <= 10:
+                        item.quality = item.quality + 2
+                    else:
                         item.quality = item.quality + 1
             elif "Backstage passes to a TAFKAL80ETC concert" == item.name:
                 if item.quality < 50:
-                    item.quality = item.quality + 1
-                    if item.sell_in <= 10:
-                        # See revision number 2394 on SVN.
-                        if item.quality < 50:
-                            item.quality = item.quality + 1
-                    # Increases the Quality of Backstage Passes if the Quality is 6 or less.
                     if item.sell_in <= 5:
-                        if item.quality < 50:
-                            item.quality = item.quality + 1
+                        item.quality = item.quality + 3
+                    elif item.sell_in <= 10:
+                        item.quality = item.quality + 2
+                    else:
+                        item.quality = item.quality + 1
+
             elif "Sulfuras, Hand of Ragnaros" == item.name:
                 pass
             else:
