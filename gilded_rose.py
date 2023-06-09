@@ -34,27 +34,26 @@ class GildedRose:
 
     @staticmethod
     def update_quality_backstage_passes(item):
-        if item.sell_in <= 5:
-            GildedRose.increase_quality(item, 3)
-        elif item.sell_in <= 10:
-            GildedRose.increase_quality(item, 2)
-        else:
-            GildedRose.increase_quality(item, 1)
+        GildedRose.increase_quality_for_appreciating_product(item)
         if item.sell_in <= 0:
             item.quality = 0
 
     @staticmethod
     def update_quality_aged_brie(item):
+        GildedRose.increase_quality_for_appreciating_product(item)
+        if item.sell_in <= 0:
+            GildedRose.increase_quality(item, 1)
+            if item.sell_in <= 1:
+                item.quality = 0
+    
+    @staticmethod
+    def increase_quality_for_appreciating_product(item):
         if item.sell_in <= 5:
             GildedRose.increase_quality(item, 3)
         elif item.sell_in <= 10:
             GildedRose.increase_quality(item, 2)
         else:
             GildedRose.increase_quality(item, 1)
-        if item.sell_in <= 0:
-            GildedRose.increase_quality(item, 1)
-            if item.sell_in <= 1:
-                item.quality = 0
     
     @staticmethod
     def increase_quality(item, count):
