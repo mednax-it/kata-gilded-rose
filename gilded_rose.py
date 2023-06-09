@@ -23,41 +23,44 @@ class GildedRose:
                 GildedRose.update_quality_backstage_passes(item)
             else:
                 GildedRose.update_quality_default(item)
-                
-            if item.quality > 50:
-                item.quality = 50
 
     @staticmethod
     def update_quality_default(item):
         if item.quality > 0:
-                item.quality = item.quality - 1
+            item.quality = item.quality - 1
         if item.sell_in <= 0:
             if item.quality > 0:
                 item.quality = item.quality - 1
 
     @staticmethod
     def update_quality_backstage_passes(item):
-        if item.quality < 50:
-            if item.sell_in <= 5:
-                item.quality = item.quality + 3
-            elif item.sell_in <= 10:
-                item.quality = item.quality + 2
-            else:
-                item.quality = item.quality + 1
+        if item.sell_in <= 5:
+            GildedRose.increase_quality(item, 3)
+        elif item.sell_in <= 10:
+            GildedRose.increase_quality(item, 2)
+        else:
+            GildedRose.increase_quality(item, 1)
         if item.sell_in <= 0:
             item.quality = 0
 
     @staticmethod
     def update_quality_aged_brie(item):
-        if item.quality < 50:
-            if item.sell_in <= 5:
-                item.quality = item.quality + 3
-            elif item.sell_in <= 10:
-                item.quality = item.quality + 2
-            else:
-                item.quality = item.quality + 1
+        if item.sell_in <= 5:
+            GildedRose.increase_quality(item, 3)
+        elif item.sell_in <= 10:
+            GildedRose.increase_quality(item, 2)
+        else:
+            GildedRose.increase_quality(item, 1)
         if item.sell_in <= 0:
-            if item.quality < 50:
-                item.quality = item.quality + 1
+            GildedRose.increase_quality(item, 1)
             if item.sell_in <= 1:
                 item.quality = 0
+    
+    @staticmethod
+    def increase_quality(item, count):
+        new_quality = item.quality + count
+
+        if new_quality > 50:
+            new_quality = 50
+        
+        item.quality = new_quality
