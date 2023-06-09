@@ -15,16 +15,15 @@ class GildedRose:
 
     @staticmethod
     def update_quality(item):
-        if "Aged Brie" == item.name:
-            GildedRose.update_quality_aged_brie(item)
-        elif "Backstage passes to a TAFKAL80ETC concert" == item.name:
-            GildedRose.update_quality_backstage_passes(item)
-        elif "Sulfuras, Hand of Ragnaros" == item.name:
-            pass
-        else:
-            GildedRose.update_quality_default(item)
-            
         if "Sulfuras, Hand of Ragnaros" != item.name:
+
+            if "Aged Brie" == item.name:
+                GildedRose.update_quality_aged_brie(item)
+            elif "Backstage passes to a TAFKAL80ETC concert" == item.name:
+                GildedRose.update_quality_backstage_passes(item)
+            else:
+                GildedRose.update_quality_default(item)
+                
             if item.quality > 50:
                 item.quality = 50
 
