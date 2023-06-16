@@ -28,7 +28,7 @@ class GildedRose:
     @staticmethod
     def update_quality_conjured(item):
         if item.quality > 0:
-            item.quality = item.quality - 2
+            GildedRose.decrease_quality(item, 2)
 
     @staticmethod
     def update_quality_default(item):
@@ -69,3 +69,7 @@ class GildedRose:
             new_quality = 50
         
         item.quality = new_quality
+
+    @staticmethod
+    def decrease_quality(item, count):
+        item.quality -= count
