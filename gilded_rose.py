@@ -27,16 +27,13 @@ class GildedRose:
 
     @staticmethod
     def update_quality_conjured(item):
-        if item.quality > 0:
-            GildedRose.decrease_quality(item, 2)
+        GildedRose.decrease_quality(item, 2)
 
     @staticmethod
     def update_quality_default(item):
-        if item.quality > 0:
-            GildedRose.decrease_quality(item, 1)
+        GildedRose.decrease_quality(item, 1)
         if item.sell_in <= 0:
-            if item.quality > 0:
-                GildedRose.decrease_quality(item, 1)
+            GildedRose.decrease_quality(item, 1)
 
     @staticmethod
     def update_quality_backstage_passes(item):
@@ -72,4 +69,5 @@ class GildedRose:
 
     @staticmethod
     def decrease_quality(item, count):
-        item.quality -= count
+        if item.quality > 0:
+            item.quality -= count
