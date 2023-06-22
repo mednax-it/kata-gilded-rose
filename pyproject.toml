@@ -9,10 +9,9 @@ readme = "README.md"
 python = "^3.9"
 
 [tool.poetry.group.dev.dependencies]
-coverage = "4.3.4"
-nose = "1.3.7"
-nose-watch = "0.9.1"
-rednose = "1.2.2"
+pytest = "^7.3.2"
+pytest-sugar = "^0.9.7"
+pytest-watch = "^4.2.0"
 
 [build-system]
 requires = ["poetry-core"]
