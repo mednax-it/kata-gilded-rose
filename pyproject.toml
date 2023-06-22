@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "kata-gilded-rose"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.group.dev.dependencies]
+coverage = "4.3.4"
+nose = "1.3.7"
+nose-watch = "0.9.1"
+rednose = "1.2.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
