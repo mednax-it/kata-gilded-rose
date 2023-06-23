@@ -10,4 +10,13 @@ class GildedRose:
 
 
 def update_item(item):
-    return Item(item.name, item.sell_in - 1, item.quality - 1)
+    return Item(item.name, item.sell_in - 1, calculate_new_quality(item))
+
+
+def calculate_new_quality(item):
+    amount = 1 if not is_expired(item) else 2
+    return item.quality - amount
+
+
+def is_expired(item):
+    return item.sell_in <= 0

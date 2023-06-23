@@ -14,10 +14,10 @@ def test_degrades_quality_by_1_when_sell_in_positive(gilded_rose, regular_item):
     assert result.quality == 1
 
 
-# def test_degrades_quality_by_2_when_sell_in_0(gilded_rose, regular_item):
-#     regular_item.sell_in = 0
-#     [result] = gilded_rose.update_quality([regular_item])
-#     assert result.quality == 0
+def test_degrades_quality_by_2_when_sell_in_0(gilded_rose, regular_item):
+    regular_item.sell_in = 0
+    [result] = gilded_rose.update_quality([regular_item])
+    assert result.quality == 0
 
 
 # def test_degrades_quality_by_2_when_sell_in_negative(gilded_rose, regular_item):
