@@ -23,6 +23,9 @@ def calculate_new_quality(item):
         return min(item.quality + amount, MAX_QUALITY)
     elif item.name == "Sulfuras, Hand of Ragnaros":
         return item.quality
+    elif item.name == "Conjured Mana Cake":
+        amount = -2 if not is_expired(item) else -4
+        return max(item.quality + amount, MIN_QUALITY)
     else:
         amount = -1 if not is_expired(item) else -2
         return max(item.quality + amount, MIN_QUALITY)

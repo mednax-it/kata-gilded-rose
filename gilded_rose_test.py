@@ -77,18 +77,16 @@ def test_keeps_legendary_item_quality_constant(gilded_rose, sulfuras):
     assert result.quality == 80
 
 
-# @pytest.mark.skip(reason="not implemented yet")
-# def test_decreases_conjured_item_quality_by_2(gilded_rose, conjured_mana_cake):
-#     [result] = gilded_rose.update_quality([conjured_mana_cake])
-#     assert result.quality == 0
+def test_decreases_conjured_item_quality_by_2(gilded_rose, conjured_mana_cake):
+    [result] = gilded_rose.update_quality([conjured_mana_cake])
+    assert result.quality == 0
 
 
-# @pytest.mark.skip(reason="not implemented yet")
-# def test_decreases_expired_conjured_item_quality_by_4(gilded_rose, conjured_mana_cake):
-#     conjured_mana_cake.sell_in = -1
-#     conjured_mana_cake.quality = 4
-#     [result] = gilded_rose.update_quality([conjured_mana_cake])
-#     assert result.quality == 0
+def test_decreases_expired_conjured_item_quality_by_4(gilded_rose, conjured_mana_cake):
+    conjured_mana_cake.sell_in = -1
+    conjured_mana_cake.quality = 4
+    [result] = gilded_rose.update_quality([conjured_mana_cake])
+    assert result.quality == 0
 
 
 @pytest.fixture
