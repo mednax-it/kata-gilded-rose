@@ -15,7 +15,7 @@ def update_item(item):
 
 def calculate_new_quality(item):
     amount = 1 if not is_expired(item) else 2
-    return item.quality - amount
+    return max(item.quality - amount, 0)
 
 
 def is_expired(item):
