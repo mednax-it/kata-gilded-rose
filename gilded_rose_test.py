@@ -46,23 +46,23 @@ def test_increases_appreciating_item_quality(gilded_rose, aged_brie):
     assert result.quality == 3
 
 
-# @pytest.mark.parametrize(
-#     ("sell_in", "quality"), [(11, 3), (10, 4), (6, 4), (5, 5), (4, 5)]
-# )
-# def test_increases_appreciating_item_quality_by_increasing_amounts(
-#     sell_in, quality, gilded_rose, aged_brie
-# ):
-#     aged_brie.sell_in = sell_in
-#     [result] = gilded_rose.update_quality([aged_brie])
-#     assert result.quality == quality
+@pytest.mark.parametrize(
+    ("sell_in", "quality"), [(11, 3), (10, 4), (6, 4), (5, 5), (4, 5)]
+)
+def test_increases_appreciating_item_quality_by_increasing_amounts(
+    sell_in, quality, gilded_rose, aged_brie
+):
+    aged_brie.sell_in = sell_in
+    [result] = gilded_rose.update_quality([aged_brie])
+    assert result.quality == quality
 
 
-# def test_decreases_expired_appreciating_item_quality_to_0(
-#     gilded_rose, aged_brie
-# ):
-#     aged_brie.sell_in = 0
-#     [result] = gilded_rose.update_quality([aged_brie])
-#     assert result.quality == 0
+def test_decreases_expired_appreciating_item_quality_to_0(
+    gilded_rose, aged_brie
+):
+    aged_brie.sell_in = 0
+    [result] = gilded_rose.update_quality([aged_brie])
+    assert result.quality == 0
 
 
 # def test_does_not_increase_quality_above_50(gilded_rose, aged_brie):
