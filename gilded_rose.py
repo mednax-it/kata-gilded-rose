@@ -21,6 +21,8 @@ def calculate_new_quality(item):
     if item.name == "Aged Brie":
         amount = calculate_appreciating_amount(item)
         return min(item.quality + amount, MAX_QUALITY)
+    elif item.name == "Sulfuras, Hand of Ragnaros":
+        return item.quality
     else:
         amount = -1 if not is_expired(item) else -2
         return max(item.quality + amount, MIN_QUALITY)

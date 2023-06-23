@@ -71,10 +71,10 @@ def test_does_not_increase_quality_above_50(gilded_rose, aged_brie):
     assert result.quality == 50
 
 
-# def test_keeps_legendary_item_quality_constant(gilded_rose, sulfuras):
-#     assert sulfuras.quality == 80
-#     [result] = gilded_rose.update_quality([sulfuras])
-#     assert result.quality == 80
+def test_keeps_legendary_item_quality_constant(gilded_rose, sulfuras):
+    assert sulfuras.quality == 80
+    [result] = gilded_rose.update_quality([sulfuras])
+    assert result.quality == 80
 
 
 # @pytest.mark.skip(reason="not implemented yet")
