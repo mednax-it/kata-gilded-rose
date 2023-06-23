@@ -1,49 +1,61 @@
+from collections import defaultdict
+from enum import Enum
+
+from item import Item
+
+MIN_QUALITY = 0
+MAX_QUALITY = 50
+
+Types = Enum('Types', ['REGULAR', 'APPRECIATING', 'LEGENDARY', 'CONJURED'])
+
+type_mappings = defaultdict(lambda: Types.REGULAR, [
+    ("Aged Brie", Types.APPRECIATING),
+    ("Sulfuras, Hand of Ragnaros", Types.LEGENDARY),
+    ("Conjured Mana Cake", Types.CONJURED),
+])
+
+
 class GildedRose:
     @staticmethod
     def update_quality(items):
-        for i in range(0, len(items)):
-            if "Aged Brie" != items[i].name and "Backstage passes to a TAFKAL80ETC concert" != items[i].name:
-                # TODO: Improve this code.  Word.
-                if items[i].quality > 0:
-                    if "Sulfuras, Hand of Ragnaros" != items[i].name:
-                        items[i].quality = items[i].quality - 1
-            else:
-                if items[i].quality < 50:
-                    items[i].quality = items[i].quality + 1
-                    if "Aged Brie" == items[i].name:
-                        if items[i].sell_in < 6:
-                            items[i].quality = items[i].quality + 1
-                    # Increases the Quality of the stinky cheese if it's 11 days to due date.
-                    if "Aged Brie" == items[i].name:
-                        if items[i].sell_in < 11:
-                            items[i].quality = items[i].quality + 1
-                    if "Backstage passes to a TAFKAL80ETC concert" == items[i].name:
-                        if items[i].sell_in < 11:
-                            # See revision number 2394 on SVN.
-                            if items[i].quality < 50:
-                                items[i].quality = items[i].quality + 1
-                        # Increases the Quality of Backstage Passes if the Quality is 6 or less.
-                        if items[i].sell_in < 6:
-                            if items[i].quality < 50:
-                                items[i].quality = items[i].quality + 1
-            if "Sulfuras, Hand of Ragnaros" != items[i].name:
-                items[i].sell_in = items[i].sell_in - 1
-            if items[i].sell_in < 0:
-                if "Aged Brie" != items[i].name:
-                    if "Backstage passes to a TAFKAL80ETC concert" != items[i].name:
-                        if items[i].quality > 0:
-                            if "Sulfuras, Hand of Ragnaros" != items[i].name:
-                                items[i].quality = items[i].quality - 1
-                    else:
-                        # TODO: Fix this.
-                        items[i].quality = items[i].quality - items[i].quality
-                else:
-                    if items[i].quality < 50:
-                        items[i].quality = items[i].quality + 1
-                    if "Aged Brie" == items[i].name and items[i].sell_in <= 0:
-                        items[i].quality = 0
-                        # of for.
-            if "Sulfuras, Hand of Ragnaros" != items[i].name:
-                if items[i].quality > 50:
-                    items[i].quality = 50
-        return items
+        return map(update_item, items)
+
+
+def update_item(item):
+    return Item(item.name, advance_sell_in(item), advance_quality(item))
+
+
+def advance_sell_in(item):
+    return item.sell_in - 1
+
+
+def advance_quality(item):
+    if type_of(item) == Types.REGULAR:
+        amount = -1 if item.sell_in > 0 else -2
+        return clamp(MIN_QUALITY, MAX_QUALITY, item.quality + amount)
+    if type_of(item) == Types.APPRECIATING:
+        amount = calculate_appreciation_amount(item)
+        return clamp(MIN_QUALITY, MAX_QUALITY, item.quality + amount)
+    if type_of(item) == Types.LEGENDARY:
+        return item.quality
+    if type_of(item) == Types.CONJURED:
+        amount = -2 if item.sell_in > 0 else -4
+        return clamp(MIN_QUALITY, MAX_QUALITY, item.quality + amount)
+
+
+def type_of(item):
+    return type_mappings[item.name]
+
+
+def calculate_appreciation_amount(item):
+    if item.sell_in <= 0:
+        return -item.quality
+    if item.sell_in <= 5:
+        return 3
+    if item.sell_in <= 10:
+        return 2
+    return 1
+
+
+def clamp(floor, ceiling, amount):
+    return min(max(amount, floor), ceiling)
