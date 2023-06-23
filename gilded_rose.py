@@ -1,5 +1,9 @@
 from item import Item
 
+
+MIN_QUALITY = 0
+MAX_QUALITY = 50
+
 class GildedRose:
     @staticmethod
     def update_quality(items):
@@ -16,9 +20,10 @@ def update_item(item):
 def calculate_new_quality(item):
     if item.name == "Aged Brie":
         amount = calculate_appreciating_amount(item)
+        return min(item.quality + amount, MAX_QUALITY)
     else:
         amount = -1 if not is_expired(item) else -2
-    return max(item.quality + amount, 0)
+        return max(item.quality + amount, MIN_QUALITY)
 
 
 def calculate_appreciating_amount(item):
