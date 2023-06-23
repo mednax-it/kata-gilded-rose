@@ -14,8 +14,11 @@ def update_item(item):
 
 
 def calculate_new_quality(item):
-    amount = 1 if not is_expired(item) else 2
-    return max(item.quality - amount, 0)
+    if item.name == "Aged Brie":
+        amount = 1
+    else:
+        amount = -1 if not is_expired(item) else -2
+    return max(item.quality + amount, 0)
 
 
 def is_expired(item):

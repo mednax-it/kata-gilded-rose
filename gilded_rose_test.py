@@ -32,18 +32,18 @@ def test_does_not_degrade_quality_below_0(gilded_rose, regular_item):
     assert result.quality == 0
 
 
-# def test_does_not_degrade_quality_below_0_when_sell_in_negative(
-#     gilded_rose, regular_item
-# ):
-#     regular_item.quality = 0
-#     regular_item.sell_in = -1
-#     [result] = gilded_rose.update_quality([regular_item])
-#     assert result.quality == 0
+def test_does_not_degrade_quality_below_0_when_sell_in_negative(
+    gilded_rose, regular_item
+):
+    regular_item.quality = 0
+    regular_item.sell_in = -1
+    [result] = gilded_rose.update_quality([regular_item])
+    assert result.quality == 0
 
 
-# def test_increases_appreciating_item_quality(gilded_rose, aged_brie):
-#     [result] = gilded_rose.update_quality([aged_brie])
-#     assert result.quality == 3
+def test_increases_appreciating_item_quality(gilded_rose, aged_brie):
+    [result] = gilded_rose.update_quality([aged_brie])
+    assert result.quality == 3
 
 
 # @pytest.mark.parametrize(
